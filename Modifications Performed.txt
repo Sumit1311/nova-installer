@@ -1,0 +1,33 @@
+1. Nova/NovaLibrary/src/HoneydConfiguration/HoneydConfiguration.cpp                              515,67-81      31%
+../src/HoneydConfiguration/HoneydConfiguration.cpp: In member function ‘bool Nova::HoneydConfiguration::WriteNodesToXML()’:
+../src/HoneydConfiguration/HoneydConfiguration.cpp:540:67: error: no matching function for call to ‘boost::property_tree::xml_parser::xml_writer_settings<char>::xml_writer_settings(char, int)’
+   boost::property_tree::xml_writer_settings<char> settings('\t', 1);
+   
+   Resolved this by changing                                                                 ^
+   Nova/NovaLibrary/src/HoneydConfiguration/HoneydConfiguration.cpp
+   changing 
+   boost::property_tree::xml_writer_settings<char> to boost::property_tree::xml_writer_settings<std::string>
+   3 occurrences changed
+
+2. Nova/NovaLibrary/src/Config.cpp
+   Building file: ../src/Database.cpp
+   Invoking: GCC C++ Compile
+   g++ -I../../NovaLibrary/src/ -O0 -g3 -Wall -c -fmessage-length=0  -pthread -std=c++0x -fPIC -MMD -MP -MF"src/Database.d" -MT"src/Database.d" -o"src/Database.o" "../src/Database.cpp"
+    ../src/Config.cpp: In static member function ‘static std::vector<Nova::HoneypotAddress> Nova::Config::GetHaystackAddresses(std::__cxx11::string)’:
+    ../src/Config.cpp:1854:21: error: no match for ‘operator==’ (operand types are ‘std::ifstream’ {aka ‘std::basic_ifstream<char>’} and ‘long int’)
+    if( honeydConfFile == NULL)
+
+    Replace if(honeydConfFile == NULL) with if(!honeydConfFile)
+
+3. Nova/NovaLibrary/src/WhitelistConfiguration.cpp
+    /usr/include/c++/8/complex:463:5: note:   template argument deduction/substitution failed:
+../src/WhitelistConfiguration.cpp:146:42: note:   ‘std::basic_istream<char>’ is not derived from ‘const std::complex<_Tp>’
+    if(getline (ipListFileStream,line) == 0)
+    Replace if(getline (ipListFileStream,line) == 0) with getline (ipListFileStream,line); if(ipListFileStream.gcount() == 0)
+    3 occurrences changed in Nova/NovaLibrary/src/WhitelistConfiguration.cpp
+
+4. 
+
+
+
+
